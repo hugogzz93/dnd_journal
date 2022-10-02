@@ -1,3 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: 'Neue Haas Grotesk';
+        src: url('/fonts/NeueHaasDisplay-Mediu.woff') format('woff');
+    }
+    h1, h2, h3 {
+        font-family: 'Neue Haas Grotesk';
+    }
+}
+
+
 html,
 body {
   padding: 0;
@@ -23,4 +38,8 @@ a {
     color: white;
     background: black;
   }
+}
+
+*, ::before, ::after {
+    border-color: unset;
 }

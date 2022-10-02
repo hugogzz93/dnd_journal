@@ -1,0 +1,16 @@
+query GetPosts {
+  posts {
+    slug
+    title,
+    heading,
+    createdAt
+    author {
+      name
+    }
+    image {
+      url
+    }
+    meta
+    postType
+  }
+}
