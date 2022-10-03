@@ -14,7 +14,7 @@ const Topic = ({link, image, heading, title, size = 'sm', slug, meta}: {link: st
 
     return (
         <Link href={`/post/${slug}`}>
-            <div className={`cursor-pointer relative ${size == 'sm' ? 'col-span-3' : size == 'md' ? 'col-span-6' : 'col-span-9'} h-80 text-white img--filter img--filter__dark-violet`}>
+            <div className={`cursor-pointer relative col-span-12 ${size == 'sm' ? 'md:col-span-3' : size == 'md' ? 'md:col-span-6' : 'md:col-span-9'} h-80 text-white img--filter img--filter__dark-violet`}>
                     <div className="rounded-md w-full h-full bg-cover" style={style}></div>
                     <div className="flex flex-col absolute bottom-1 p-4 w-full">
                         <h3>{heading}</h3>

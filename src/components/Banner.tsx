@@ -18,7 +18,7 @@ const Banner = ({post, links}: {post: Post, links: any}) => (
 
         <div className="container w-2/3 mx-auto flex flex-col align-middle justify-around flex-1 text-white">
             <div className='basis-1/3'></div>
-            <div className='flex flex-col align-middle justify-around flex-1'>
+            <div className='flex flex-col align-middle justify-around flex-1 mb-8 md:mb-0'>
             <div>
                 <div className="text-7xl font-bold mb-8">
                     {post.title}
