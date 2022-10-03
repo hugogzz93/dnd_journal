@@ -25,7 +25,7 @@ const Banner = ({post, links}: {post: Post, links: any}) => (
                 </div>
                 <div className="text-2xl italic">{post.heading}</div>
             </div>
-            <div>
+            <div className='my-4 md:my-0'>
                     <Link href={'/post/' + post.slug}>
                         <button className="border-white border-2 inline p-3 hover:bg-slate-500 transition-all duration-300">Read More</button>
                     </Link>
