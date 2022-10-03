@@ -5,12 +5,10 @@ import { GetPosts, queryClient } from 'services'
 import { Banner, NewsBlock } from '../components'
 
 export const links = [
-    {label: 'Categories', slug: 'categories'},
-    {label: 'Releases', slug: 'releases'},
-    {label: 'Books', slug: 'books'},
-    {label: 'Blog', slug: 'blog'},
+    {label: 'Home', slug: '/'},
     {label: 'Timeline', slug: 'timeline'},
-    {label: 'Store', slug: 'store'},
+    {label: 'Sessions', slug: 'sessions'},
+    {label: 'Leads', slug: 'leads'},
 ]
 
 export default function Home() {

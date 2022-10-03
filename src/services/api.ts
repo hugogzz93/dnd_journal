@@ -9,7 +9,9 @@ const gqlClient = new GraphQLClient("https://api-us-east-1.hygraph.com/v2/cl8rq2
     }
 })
 export const {
-    GetPosts
+    GetRecentPosts,
+    GetPosts,
+    GetPost
 } = getSdk(gqlClient)
 
 export const queryClient = new QueryClient({

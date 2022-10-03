@@ -1162,6 +1162,7 @@ export type BatchPayload = {
 export enum Categories {
   Character = 'Character',
   Lead = 'Lead',
+  Location = 'Location',
   Place = 'Place',
   Session = 'Session'
 }
@@ -1887,9 +1888,11 @@ export type Post = Node & {
   history: Array<Version>;
   /** The unique identifier */
   id: Scalars['ID'];
-  image: Asset;
+  image?: Maybe<Asset>;
   meta?: Maybe<Scalars['Json']>;
+  post: Array<Post>;
   postType: Array<Categories>;
+  posts: Array<Post>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']>;
   /** User that last published this document */
@@ -1932,6 +1935,30 @@ export type PostHistoryArgs = {
 
 export type PostImageArgs = {
   locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type PostPostArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<PostOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PostWhereInput>;
+};
+
+
+export type PostPostsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<PostOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PostWhereInput>;
 };
 
 
@@ -1993,9 +2020,11 @@ export type PostCreateInput = {
   content: Scalars['RichTextAST'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   heading: Scalars['String'];
-  image: AssetCreateOneInlineInput;
+  image?: InputMaybe<AssetCreateOneInlineInput>;
   meta?: InputMaybe<Scalars['Json']>;
+  post?: InputMaybe<PostCreateManyInlineInput>;
   postType?: InputMaybe<Array<Categories>>;
+  posts?: InputMaybe<PostCreateManyInlineInput>;
   slug: Scalars['String'];
   title: Scalars['String'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -2103,6 +2132,12 @@ export type PostManyWhereInput = {
   postType_contains_some?: InputMaybe<Array<Categories>>;
   /** Matches if the field array does not contains *all* items provided to the filter or order does not match */
   postType_not?: InputMaybe<Array<Categories>>;
+  post_every?: InputMaybe<PostWhereInput>;
+  post_none?: InputMaybe<PostWhereInput>;
+  post_some?: InputMaybe<PostWhereInput>;
+  posts_every?: InputMaybe<PostWhereInput>;
+  posts_none?: InputMaybe<PostWhereInput>;
+  posts_some?: InputMaybe<PostWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -2203,7 +2238,9 @@ export type PostUpdateInput = {
   heading?: InputMaybe<Scalars['String']>;
   image?: InputMaybe<AssetUpdateOneInlineInput>;
   meta?: InputMaybe<Scalars['Json']>;
+  post?: InputMaybe<PostUpdateManyInlineInput>;
   postType?: InputMaybe<Array<Categories>>;
+  posts?: InputMaybe<PostUpdateManyInlineInput>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
 };
@@ -2360,6 +2397,12 @@ export type PostWhereInput = {
   postType_contains_some?: InputMaybe<Array<Categories>>;
   /** Matches if the field array does not contains *all* items provided to the filter or order does not match */
   postType_not?: InputMaybe<Array<Categories>>;
+  post_every?: InputMaybe<PostWhereInput>;
+  post_none?: InputMaybe<PostWhereInput>;
+  post_some?: InputMaybe<PostWhereInput>;
+  posts_every?: InputMaybe<PostWhereInput>;
+  posts_none?: InputMaybe<PostWhereInput>;
+  posts_some?: InputMaybe<PostWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
@@ -4254,15 +4297,72 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
+export type GetPostQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type GetPostQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', slug: string, title: string, heading: string, createdAt: any, meta?: any | null, postType: Array<Categories>, content: { __typename?: 'PostContentRichText', markdown: string, json: any }, author?: { __typename?: 'Author', name: string } | null, image?: { __typename?: 'Asset', url: string } | null, posts: Array<{ __typename?: 'Post', title: string, slug: string, postType: Array<Categories> }> }> };
+
 export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', slug: string, title: string, heading: string, createdAt: any, meta?: any | null, postType: Array<Categories>, author?: { __typename?: 'Author', name: string } | null, image: { __typename?: 'Asset', url: string } }> };
+export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', slug: string, title: string, heading: string, createdAt: any, meta?: any | null, postType: Array<Categories>, author?: { __typename?: 'Author', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+
+export type GetRecentPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
+export type GetRecentPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', slug: string, title: string, heading: string, createdAt: any, meta?: any | null, postType: Array<Categories>, author?: { __typename?: 'Author', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
+
+
+export const GetPostDocument = gql`
+    query GetPost($slug: String!) {
+  posts(where: {slug: $slug}) {
+    slug
+    title
+    heading
+    content {
+      markdown
+      json
+    }
+    createdAt
+    author {
+      name
+    }
+    image {
+      url
+    }
+    meta
+    postType
+    posts {
+      title
+      slug
+      postType
+    }
+  }
+}
+    `;
 export const GetPostsDocument = gql`
     query GetPosts {
   posts {
+    slug
+    title
+    heading
+    createdAt
+    author {
+      name
+    }
+    image {
+      url
+    }
+    meta
+    postType
+  }
+}
+    `;
+export const GetRecentPostsDocument = gql`
+    query GetRecentPosts {
+  posts(orderBy: createdAt_ASC, last: 5) {
     slug
     title
     heading
@@ -4286,8 +4386,14 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    GetPost(variables: GetPostQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPostQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetPostQuery>(GetPostDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetPost', 'query');
+    },
     GetPosts(variables?: GetPostsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPostsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetPostsQuery>(GetPostsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetPosts', 'query');
+    },
+    GetRecentPosts(variables?: GetRecentPostsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetRecentPostsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetRecentPostsQuery>(GetRecentPostsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetRecentPosts', 'query');
     }
   };
 }

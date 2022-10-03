@@ -1,0 +1,25 @@
+query GetPost($slug: String!) {
+  posts(where: {slug: $slug}) {
+    slug
+    title,
+    heading,
+    content {
+        markdown
+        json
+    }
+    createdAt
+    author {
+      name
+    }
+    image {
+      url
+    }
+    meta
+    postType
+    posts {
+        title
+        slug
+        postType
+    }
+  }
+}

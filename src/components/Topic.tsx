@@ -6,7 +6,7 @@ const Topic = ({link, image, heading, title, size = 'sm', slug, meta}: {link: st
         backgroundImage: `url(${image})`,
         backgroundPosition: '50% 50%',
         backgroundSize: null,
-        backgroundColor: meta.bgOverlayColor,
+        backgroundColor: meta.bgOverlayColor || '#833a0b',
         backgroundBlendMode: 'multiply'
     }
 

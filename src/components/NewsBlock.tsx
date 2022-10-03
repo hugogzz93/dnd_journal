@@ -11,7 +11,7 @@ const NewsBlock = ({title, posts}: {title: string, posts: Array<Post>}) => (
                 heading={d.postType[0] == 'Session' ? 'Session - ' + moment(d.createdAt).format('YYYY.MM.DD') : d.postType[0]}
                 size={d.meta.blockSize}
                 title={d.title}
-                image={d.image.url}
+                image={d.image?.url || '/lead.png'}
                 link={d.slug} 
                 key={d.slug}
                 slug={d.slug}
