@@ -111,7 +111,7 @@ const QuestLogView = () => {
         <QuestLogBanner links={links}/>
         <div className="container mx-auto">
             <div className="grid grid-cols-12 md:py-8 text-dnd text-dnd-color pb-5">
-                <span className="material-symbols-outlined md:hidden fixed rounded-lg" onClick={() => setMenuOpen(true)}style={{zIndex: 3, fontSize: '4em', bottom: '1rem', left: '1rem', backgroundColor: '#402e44'}}> chevron_left </span>
+                <span className="material-symbols-outlined md:hidden fixed rounded-lg" onClick={() => setMenuOpen(true)} style={{opacity: isMenuOpen ? '0' : '1', zIndex: 3, fontSize: '4em', bottom: '1rem', left: '1rem', backgroundColor: '#402e44'}}> chevron_left </span>
                 <div className="col-span-12 md:col-span-3">
                     <QuestSelectionWidget quests={data?.quests || []} 
                                             selectedQuest={selectedQuest} 
