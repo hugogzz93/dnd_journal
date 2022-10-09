@@ -1,0 +1,12 @@
+query GetQuests {
+    quests {
+        title
+        slug
+        shortDescription
+        questStatus
+        content {
+            markdown
+            json
+        }
+    }
+}

@@ -1,5 +1,6 @@
 export {default as Banner} from './Banner'
 export {default as PostBanner} from './PostBanner'
+export {default as QuestLogBanner} from './QuestLogBanner'
 export {default as Navbar} from './Navbar'
 export {default as NewsBlock} from './NewsBlock'
 export {default as Topic} from './Topic'

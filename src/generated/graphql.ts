@@ -1319,6 +1319,8 @@ export type Mutation = {
   createAuthor?: Maybe<Author>;
   /** Create one post */
   createPost?: Maybe<Post>;
+  /** Create one quest */
+  createQuest?: Maybe<Quest>;
   /** Create one scheduledRelease */
   createScheduledRelease?: Maybe<ScheduledRelease>;
   /** Delete one asset from _all_ existing stages. Returns deleted document. */
@@ -1346,8 +1348,17 @@ export type Mutation = {
   deleteManyPosts: BatchPayload;
   /** Delete many Post documents, return deleted documents */
   deleteManyPostsConnection: PostConnection;
+  /**
+   * Delete many Quest documents
+   * @deprecated Please use the new paginated many mutation (deleteManyQuestsConnection)
+   */
+  deleteManyQuests: BatchPayload;
+  /** Delete many Quest documents, return deleted documents */
+  deleteManyQuestsConnection: QuestConnection;
   /** Delete one post from _all_ existing stages. Returns deleted document. */
   deletePost?: Maybe<Post>;
+  /** Delete one quest from _all_ existing stages. Returns deleted document. */
+  deleteQuest?: Maybe<Quest>;
   /** Delete and return scheduled operation */
   deleteScheduledOperation?: Maybe<ScheduledOperation>;
   /** Delete one scheduledRelease from _all_ existing stages. Returns deleted document. */
@@ -1377,20 +1388,33 @@ export type Mutation = {
   publishManyPosts: BatchPayload;
   /** Publish many Post documents */
   publishManyPostsConnection: PostConnection;
+  /**
+   * Publish many Quest documents
+   * @deprecated Please use the new paginated many mutation (publishManyQuestsConnection)
+   */
+  publishManyQuests: BatchPayload;
+  /** Publish many Quest documents */
+  publishManyQuestsConnection: QuestConnection;
   /** Publish one post */
   publishPost?: Maybe<Post>;
+  /** Publish one quest */
+  publishQuest?: Maybe<Quest>;
   /** Schedule to publish one asset */
   schedulePublishAsset?: Maybe<Asset>;
   /** Schedule to publish one author */
   schedulePublishAuthor?: Maybe<Author>;
   /** Schedule to publish one post */
   schedulePublishPost?: Maybe<Post>;
+  /** Schedule to publish one quest */
+  schedulePublishQuest?: Maybe<Quest>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAsset?: Maybe<Asset>;
   /** Unpublish one author from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishAuthor?: Maybe<Author>;
   /** Unpublish one post from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   scheduleUnpublishPost?: Maybe<Post>;
+  /** Unpublish one quest from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  scheduleUnpublishQuest?: Maybe<Quest>;
   /** Unpublish one asset from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishAsset?: Maybe<Asset>;
   /** Unpublish one author from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
@@ -1416,8 +1440,17 @@ export type Mutation = {
   unpublishManyPosts: BatchPayload;
   /** Find many Post documents that match criteria in specified stage and unpublish from target stages */
   unpublishManyPostsConnection: PostConnection;
+  /**
+   * Unpublish many Quest documents
+   * @deprecated Please use the new paginated many mutation (unpublishManyQuestsConnection)
+   */
+  unpublishManyQuests: BatchPayload;
+  /** Find many Quest documents that match criteria in specified stage and unpublish from target stages */
+  unpublishManyQuestsConnection: QuestConnection;
   /** Unpublish one post from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
   unpublishPost?: Maybe<Post>;
+  /** Unpublish one quest from selected stages. Unpublish either the complete document with its relations, localizations and base data or specific localizations only. */
+  unpublishQuest?: Maybe<Quest>;
   /** Update one asset */
   updateAsset?: Maybe<Asset>;
   /** Update one author */
@@ -1443,8 +1476,17 @@ export type Mutation = {
   updateManyPosts: BatchPayload;
   /** Update many Post documents */
   updateManyPostsConnection: PostConnection;
+  /**
+   * Update many quests
+   * @deprecated Please use the new paginated many mutation (updateManyQuestsConnection)
+   */
+  updateManyQuests: BatchPayload;
+  /** Update many Quest documents */
+  updateManyQuestsConnection: QuestConnection;
   /** Update one post */
   updatePost?: Maybe<Post>;
+  /** Update one quest */
+  updateQuest?: Maybe<Quest>;
   /** Update one scheduledRelease */
   updateScheduledRelease?: Maybe<ScheduledRelease>;
   /** Upsert one asset */
@@ -1453,6 +1495,8 @@ export type Mutation = {
   upsertAuthor?: Maybe<Author>;
   /** Upsert one post */
   upsertPost?: Maybe<Post>;
+  /** Upsert one quest */
+  upsertQuest?: Maybe<Quest>;
 };
 
 
@@ -1468,6 +1512,11 @@ export type MutationCreateAuthorArgs = {
 
 export type MutationCreatePostArgs = {
   data: PostCreateInput;
+};
+
+
+export type MutationCreateQuestArgs = {
+  data: QuestCreateInput;
 };
 
 
@@ -1531,8 +1580,28 @@ export type MutationDeleteManyPostsConnectionArgs = {
 };
 
 
+export type MutationDeleteManyQuestsArgs = {
+  where?: InputMaybe<QuestManyWhereInput>;
+};
+
+
+export type MutationDeleteManyQuestsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<QuestManyWhereInput>;
+};
+
+
 export type MutationDeletePostArgs = {
   where: PostWhereUniqueInput;
+};
+
+
+export type MutationDeleteQuestArgs = {
+  where: QuestWhereUniqueInput;
 };
 
 
@@ -1621,9 +1690,33 @@ export type MutationPublishManyPostsConnectionArgs = {
 };
 
 
+export type MutationPublishManyQuestsArgs = {
+  to?: Array<Stage>;
+  where?: InputMaybe<QuestManyWhereInput>;
+};
+
+
+export type MutationPublishManyQuestsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: InputMaybe<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  to?: Array<Stage>;
+  where?: InputMaybe<QuestManyWhereInput>;
+};
+
+
 export type MutationPublishPostArgs = {
   to?: Array<Stage>;
   where: PostWhereUniqueInput;
+};
+
+
+export type MutationPublishQuestArgs = {
+  to?: Array<Stage>;
+  where: QuestWhereUniqueInput;
 };
 
 
@@ -1654,6 +1747,14 @@ export type MutationSchedulePublishPostArgs = {
 };
 
 
+export type MutationSchedulePublishQuestArgs = {
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  to?: Array<Stage>;
+  where: QuestWhereUniqueInput;
+};
+
+
 export type MutationScheduleUnpublishAssetArgs = {
   from?: Array<Stage>;
   locales?: InputMaybe<Array<Locale>>;
@@ -1677,6 +1778,14 @@ export type MutationScheduleUnpublishPostArgs = {
   releaseAt?: InputMaybe<Scalars['DateTime']>;
   releaseId?: InputMaybe<Scalars['String']>;
   where: PostWhereUniqueInput;
+};
+
+
+export type MutationScheduleUnpublishQuestArgs = {
+  from?: Array<Stage>;
+  releaseAt?: InputMaybe<Scalars['DateTime']>;
+  releaseId?: InputMaybe<Scalars['String']>;
+  where: QuestWhereUniqueInput;
 };
 
 
@@ -1752,9 +1861,33 @@ export type MutationUnpublishManyPostsConnectionArgs = {
 };
 
 
+export type MutationUnpublishManyQuestsArgs = {
+  from?: Array<Stage>;
+  where?: InputMaybe<QuestManyWhereInput>;
+};
+
+
+export type MutationUnpublishManyQuestsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']>;
+  from?: Array<Stage>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: InputMaybe<Stage>;
+  where?: InputMaybe<QuestManyWhereInput>;
+};
+
+
 export type MutationUnpublishPostArgs = {
   from?: Array<Stage>;
   where: PostWhereUniqueInput;
+};
+
+
+export type MutationUnpublishQuestArgs = {
+  from?: Array<Stage>;
+  where: QuestWhereUniqueInput;
 };
 
 
@@ -1821,9 +1954,32 @@ export type MutationUpdateManyPostsConnectionArgs = {
 };
 
 
+export type MutationUpdateManyQuestsArgs = {
+  data: QuestUpdateManyInput;
+  where?: InputMaybe<QuestManyWhereInput>;
+};
+
+
+export type MutationUpdateManyQuestsConnectionArgs = {
+  after?: InputMaybe<Scalars['ID']>;
+  before?: InputMaybe<Scalars['ID']>;
+  data: QuestUpdateManyInput;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<QuestManyWhereInput>;
+};
+
+
 export type MutationUpdatePostArgs = {
   data: PostUpdateInput;
   where: PostWhereUniqueInput;
+};
+
+
+export type MutationUpdateQuestArgs = {
+  data: QuestUpdateInput;
+  where: QuestWhereUniqueInput;
 };
 
 
@@ -1848,6 +2004,12 @@ export type MutationUpsertAuthorArgs = {
 export type MutationUpsertPostArgs = {
   upsert: PostUpsertInput;
   where: PostWhereUniqueInput;
+};
+
+
+export type MutationUpsertQuestArgs = {
+  upsert: QuestUpsertInput;
+  where: QuestWhereUniqueInput;
 };
 
 /** An object with an ID */
@@ -2017,6 +2179,7 @@ export type PostContentRichTextEmbeddedTypes = Asset | Author | Post;
 
 export type PostCreateInput = {
   author?: InputMaybe<AuthorCreateOneInlineInput>;
+  cl90n97wp1oj001tc2s3xepgv?: InputMaybe<QuestCreateManyInlineInput>;
   content: Scalars['RichTextAST'];
   createdAt?: InputMaybe<Scalars['DateTime']>;
   heading: Scalars['String'];
@@ -2234,6 +2397,7 @@ export enum PostOrderByInput {
 
 export type PostUpdateInput = {
   author?: InputMaybe<AuthorUpdateOneInlineInput>;
+  cl90n97wp1oj001tc2s3xepgv?: InputMaybe<QuestUpdateManyInlineInput>;
   content?: InputMaybe<Scalars['RichTextAST']>;
   heading?: InputMaybe<Scalars['String']>;
   image?: InputMaybe<AssetUpdateOneInlineInput>;
@@ -2534,6 +2698,14 @@ export type Query = {
   posts: Array<Post>;
   /** Retrieve multiple posts using the Relay connection interface */
   postsConnection: PostConnection;
+  /** Retrieve a single quest */
+  quest?: Maybe<Quest>;
+  /** Retrieve document version */
+  questVersion?: Maybe<DocumentVersion>;
+  /** Retrieve multiple quests */
+  quests: Array<Quest>;
+  /** Retrieve multiple quests using the Relay connection interface */
+  questsConnection: QuestConnection;
   /** Retrieve a single scheduledOperation */
   scheduledOperation?: Maybe<ScheduledOperation>;
   /** Retrieve multiple scheduledOperations */
@@ -2676,6 +2848,44 @@ export type QueryPostsConnectionArgs = {
 };
 
 
+export type QueryQuestArgs = {
+  locales?: Array<Locale>;
+  stage?: Stage;
+  where: QuestWhereUniqueInput;
+};
+
+
+export type QueryQuestVersionArgs = {
+  where: VersionWhereInput;
+};
+
+
+export type QueryQuestsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<QuestOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<QuestWhereInput>;
+};
+
+
+export type QueryQuestsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: Array<Locale>;
+  orderBy?: InputMaybe<QuestOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  stage?: Stage;
+  where?: InputMaybe<QuestWhereInput>;
+};
+
+
 export type QueryScheduledOperationArgs = {
   locales?: Array<Locale>;
   stage?: Stage;
@@ -2772,6 +2982,588 @@ export type QueryUsersConnectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   stage?: Stage;
   where?: InputMaybe<UserWhereInput>;
+};
+
+export type Quest = Node & {
+  __typename?: 'Quest';
+  content?: Maybe<QuestContentRichText>;
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  /** Get the document in other stages */
+  documentInStages: Array<Quest>;
+  /** List of Quest versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  posts: Array<Post>;
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  questStatus?: Maybe<QuestStatus>;
+  scheduledIn: Array<ScheduledOperation>;
+  shortDescription?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
+  /** System stage field */
+  stage: Stage;
+  title: Scalars['String'];
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+};
+
+
+export type QuestCreatedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type QuestDocumentInStagesArgs = {
+  includeCurrent?: Scalars['Boolean'];
+  inheritLocale?: Scalars['Boolean'];
+  stages?: Array<Stage>;
+};
+
+
+export type QuestHistoryArgs = {
+  limit?: Scalars['Int'];
+  skip?: Scalars['Int'];
+  stageOverride?: InputMaybe<Stage>;
+};
+
+
+export type QuestPostsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  orderBy?: InputMaybe<PostOrderByInput>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PostWhereInput>;
+};
+
+
+export type QuestPublishedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+
+export type QuestScheduledInArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type QuestUpdatedByArgs = {
+  locales?: InputMaybe<Array<Locale>>;
+};
+
+export type QuestConnectInput = {
+  /** Allow to specify document position in list of connected documents, will default to appending at end of list */
+  position?: InputMaybe<ConnectPositionInput>;
+  /** Document to connect */
+  where: QuestWhereUniqueInput;
+};
+
+/** A connection to a list of items. */
+export type QuestConnection = {
+  __typename?: 'QuestConnection';
+  aggregate: Aggregate;
+  /** A list of edges. */
+  edges: Array<QuestEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+export type QuestContentRichText = {
+  __typename?: 'QuestContentRichText';
+  /** Returns HTMl representation */
+  html: Scalars['String'];
+  json: Scalars['RichTextAST'];
+  /** Returns Markdown representation */
+  markdown: Scalars['String'];
+  /** @deprecated Please use the 'json' field */
+  raw: Scalars['RichTextAST'];
+  references: Array<QuestContentRichTextEmbeddedTypes>;
+  /** Returns plain-text contents of RichText */
+  text: Scalars['String'];
+};
+
+export type QuestContentRichTextEmbeddedTypes = Asset | Author | Post | Quest;
+
+export type QuestCreateInput = {
+  content?: InputMaybe<Scalars['RichTextAST']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  posts?: InputMaybe<PostCreateManyInlineInput>;
+  questStatus?: InputMaybe<QuestStatus>;
+  shortDescription?: InputMaybe<Scalars['String']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type QuestCreateManyInlineInput = {
+  /** Connect multiple existing Quest documents */
+  connect?: InputMaybe<Array<QuestWhereUniqueInput>>;
+  /** Create and connect multiple existing Quest documents */
+  create?: InputMaybe<Array<QuestCreateInput>>;
+};
+
+export type QuestCreateOneInlineInput = {
+  /** Connect one existing Quest document */
+  connect?: InputMaybe<QuestWhereUniqueInput>;
+  /** Create and connect one Quest document */
+  create?: InputMaybe<QuestCreateInput>;
+};
+
+/** An edge in a connection. */
+export type QuestEdge = {
+  __typename?: 'QuestEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: Quest;
+};
+
+/** Identifies documents */
+export type QuestManyWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<QuestWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<QuestWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<QuestWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<QuestWhereStageInput>;
+  documentInStages_none?: InputMaybe<QuestWhereStageInput>;
+  documentInStages_some?: InputMaybe<QuestWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  posts_every?: InputMaybe<PostWhereInput>;
+  posts_none?: InputMaybe<PostWhereInput>;
+  posts_some?: InputMaybe<PostWhereInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  questStatus?: InputMaybe<QuestStatus>;
+  /** All values that are contained in given list. */
+  questStatus_in?: InputMaybe<Array<InputMaybe<QuestStatus>>>;
+  /** All values that are not equal to given value. */
+  questStatus_not?: InputMaybe<QuestStatus>;
+  /** All values that are not contained in given list. */
+  questStatus_not_in?: InputMaybe<Array<InputMaybe<QuestStatus>>>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  shortDescription?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  shortDescription_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  shortDescription_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  shortDescription_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  shortDescription_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  shortDescription_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  shortDescription_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  shortDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  shortDescription_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  shortDescription_starts_with?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  slug_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  slug_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  title_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  title_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  title_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  title_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  title_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  title_starts_with?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+export enum QuestOrderByInput {
+  CreatedAtAsc = 'createdAt_ASC',
+  CreatedAtDesc = 'createdAt_DESC',
+  IdAsc = 'id_ASC',
+  IdDesc = 'id_DESC',
+  PublishedAtAsc = 'publishedAt_ASC',
+  PublishedAtDesc = 'publishedAt_DESC',
+  QuestStatusAsc = 'questStatus_ASC',
+  QuestStatusDesc = 'questStatus_DESC',
+  ShortDescriptionAsc = 'shortDescription_ASC',
+  ShortDescriptionDesc = 'shortDescription_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC',
+  UpdatedAtAsc = 'updatedAt_ASC',
+  UpdatedAtDesc = 'updatedAt_DESC'
+}
+
+export enum QuestStatus {
+  Active = 'Active',
+  Archived = 'Archived',
+  Completed = 'Completed',
+  Failed = 'Failed'
+}
+
+export type QuestUpdateInput = {
+  content?: InputMaybe<Scalars['RichTextAST']>;
+  posts?: InputMaybe<PostUpdateManyInlineInput>;
+  questStatus?: InputMaybe<QuestStatus>;
+  shortDescription?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type QuestUpdateManyInlineInput = {
+  /** Connect multiple existing Quest documents */
+  connect?: InputMaybe<Array<QuestConnectInput>>;
+  /** Create and connect multiple Quest documents */
+  create?: InputMaybe<Array<QuestCreateInput>>;
+  /** Delete multiple Quest documents */
+  delete?: InputMaybe<Array<QuestWhereUniqueInput>>;
+  /** Disconnect multiple Quest documents */
+  disconnect?: InputMaybe<Array<QuestWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing Quest documents */
+  set?: InputMaybe<Array<QuestWhereUniqueInput>>;
+  /** Update multiple Quest documents */
+  update?: InputMaybe<Array<QuestUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple Quest documents */
+  upsert?: InputMaybe<Array<QuestUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type QuestUpdateManyInput = {
+  content?: InputMaybe<Scalars['RichTextAST']>;
+  questStatus?: InputMaybe<QuestStatus>;
+  shortDescription?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+};
+
+export type QuestUpdateManyWithNestedWhereInput = {
+  /** Update many input */
+  data: QuestUpdateManyInput;
+  /** Document search */
+  where: QuestWhereInput;
+};
+
+export type QuestUpdateOneInlineInput = {
+  /** Connect existing Quest document */
+  connect?: InputMaybe<QuestWhereUniqueInput>;
+  /** Create and connect one Quest document */
+  create?: InputMaybe<QuestCreateInput>;
+  /** Delete currently connected Quest document */
+  delete?: InputMaybe<Scalars['Boolean']>;
+  /** Disconnect currently connected Quest document */
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  /** Update single Quest document */
+  update?: InputMaybe<QuestUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single Quest document */
+  upsert?: InputMaybe<QuestUpsertWithNestedWhereUniqueInput>;
+};
+
+export type QuestUpdateWithNestedWhereUniqueInput = {
+  /** Document to update */
+  data: QuestUpdateInput;
+  /** Unique document search */
+  where: QuestWhereUniqueInput;
+};
+
+export type QuestUpsertInput = {
+  /** Create document if it didn't exist */
+  create: QuestCreateInput;
+  /** Update document if it exists */
+  update: QuestUpdateInput;
+};
+
+export type QuestUpsertWithNestedWhereUniqueInput = {
+  /** Upsert data */
+  data: QuestUpsertInput;
+  /** Unique document search */
+  where: QuestWhereUniqueInput;
+};
+
+/** This contains a set of filters that can be used to compare values internally */
+export type QuestWhereComparatorInput = {
+  /** This field can be used to request to check if the entry is outdated by internal comparison */
+  outdated_to?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Identifies documents */
+export type QuestWhereInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<QuestWhereInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<QuestWhereInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<QuestWhereInput>>;
+  /** Contains search across all appropriate fields. */
+  _search?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  createdAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  createdAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  createdAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  createdAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  createdAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  createdAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  createdAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  createdBy?: InputMaybe<UserWhereInput>;
+  documentInStages_every?: InputMaybe<QuestWhereStageInput>;
+  documentInStages_none?: InputMaybe<QuestWhereStageInput>;
+  documentInStages_some?: InputMaybe<QuestWhereStageInput>;
+  id?: InputMaybe<Scalars['ID']>;
+  /** All values containing the given string. */
+  id_contains?: InputMaybe<Scalars['ID']>;
+  /** All values ending with the given string. */
+  id_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are contained in given list. */
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values that are not equal to given value. */
+  id_not?: InputMaybe<Scalars['ID']>;
+  /** All values not containing the given string. */
+  id_not_contains?: InputMaybe<Scalars['ID']>;
+  /** All values not ending with the given string */
+  id_not_ends_with?: InputMaybe<Scalars['ID']>;
+  /** All values that are not contained in given list. */
+  id_not_in?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>;
+  /** All values not starting with the given string. */
+  id_not_starts_with?: InputMaybe<Scalars['ID']>;
+  /** All values starting with the given string. */
+  id_starts_with?: InputMaybe<Scalars['ID']>;
+  posts_every?: InputMaybe<PostWhereInput>;
+  posts_none?: InputMaybe<PostWhereInput>;
+  posts_some?: InputMaybe<PostWhereInput>;
+  publishedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  publishedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  publishedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  publishedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  publishedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  publishedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  publishedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  publishedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  publishedBy?: InputMaybe<UserWhereInput>;
+  questStatus?: InputMaybe<QuestStatus>;
+  /** All values that are contained in given list. */
+  questStatus_in?: InputMaybe<Array<InputMaybe<QuestStatus>>>;
+  /** All values that are not equal to given value. */
+  questStatus_not?: InputMaybe<QuestStatus>;
+  /** All values that are not contained in given list. */
+  questStatus_not_in?: InputMaybe<Array<InputMaybe<QuestStatus>>>;
+  scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
+  scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  shortDescription?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  shortDescription_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  shortDescription_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  shortDescription_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  shortDescription_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  shortDescription_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  shortDescription_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  shortDescription_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  shortDescription_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  shortDescription_starts_with?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  slug_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  slug_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  slug_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  slug_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  slug_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  slug_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  slug_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  slug_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  slug_starts_with?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  /** All values containing the given string. */
+  title_contains?: InputMaybe<Scalars['String']>;
+  /** All values ending with the given string. */
+  title_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are contained in given list. */
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values that are not equal to given value. */
+  title_not?: InputMaybe<Scalars['String']>;
+  /** All values not containing the given string. */
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  /** All values not ending with the given string */
+  title_not_ends_with?: InputMaybe<Scalars['String']>;
+  /** All values that are not contained in given list. */
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  /** All values not starting with the given string. */
+  title_not_starts_with?: InputMaybe<Scalars['String']>;
+  /** All values starting with the given string. */
+  title_starts_with?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than the given value. */
+  updatedAt_gt?: InputMaybe<Scalars['DateTime']>;
+  /** All values greater than or equal the given value. */
+  updatedAt_gte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are contained in given list. */
+  updatedAt_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  /** All values less than the given value. */
+  updatedAt_lt?: InputMaybe<Scalars['DateTime']>;
+  /** All values less than or equal the given value. */
+  updatedAt_lte?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not equal to given value. */
+  updatedAt_not?: InputMaybe<Scalars['DateTime']>;
+  /** All values that are not contained in given list. */
+  updatedAt_not_in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>;
+  updatedBy?: InputMaybe<UserWhereInput>;
+};
+
+/** The document in stages filter allows specifying a stage entry to cross compare the same document between different stages */
+export type QuestWhereStageInput = {
+  /** Logical AND on all given filters. */
+  AND?: InputMaybe<Array<QuestWhereStageInput>>;
+  /** Logical NOT on all given filters combined by AND. */
+  NOT?: InputMaybe<Array<QuestWhereStageInput>>;
+  /** Logical OR on all given filters. */
+  OR?: InputMaybe<Array<QuestWhereStageInput>>;
+  /** This field contains fields which can be set as true or false to specify an internal comparison */
+  compareWithParent?: InputMaybe<QuestWhereComparatorInput>;
+  /** Specify the stage to compare with */
+  stage?: InputMaybe<Stage>;
+};
+
+/** References Quest record uniquely */
+export type QuestWhereUniqueInput = {
+  id?: InputMaybe<Scalars['ID']>;
+  slug?: InputMaybe<Scalars['String']>;
 };
 
 /** Representing a RGBA color value: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#rgb()_and_rgba() */
@@ -2881,7 +3673,7 @@ export type ScheduledOperationUpdatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
 
-export type ScheduledOperationAffectedDocument = Asset | Author | Post;
+export type ScheduledOperationAffectedDocument = Asset | Author | Post | Quest;
 
 export type ScheduledOperationConnectInput = {
   /** Allow to specify document position in list of connected documents, will default to appending at end of list */
@@ -4309,6 +5101,11 @@ export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPostsQuery = { __typename?: 'Query', posts: Array<{ __typename?: 'Post', slug: string, title: string, heading: string, createdAt: any, meta?: any | null, postType: Array<Categories>, author?: { __typename?: 'Author', name: string } | null, image?: { __typename?: 'Asset', url: string } | null }> };
 
+export type GetQuestsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetQuestsQuery = { __typename?: 'Query', quests: Array<{ __typename?: 'Quest', title: string, slug: string, shortDescription?: string | null, questStatus?: QuestStatus | null, content?: { __typename?: 'QuestContentRichText', markdown: string, json: any } | null }> };
+
 export type GetRecentPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4360,6 +5157,20 @@ export const GetPostsDocument = gql`
   }
 }
     `;
+export const GetQuestsDocument = gql`
+    query GetQuests {
+  quests {
+    title
+    slug
+    shortDescription
+    questStatus
+    content {
+      markdown
+      json
+    }
+  }
+}
+    `;
 export const GetRecentPostsDocument = gql`
     query GetRecentPosts {
   posts(orderBy: createdAt_ASC, last: 5) {
@@ -4391,6 +5202,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     GetPosts(variables?: GetPostsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetPostsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetPostsQuery>(GetPostsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetPosts', 'query');
+    },
+    GetQuests(variables?: GetQuestsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetQuestsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetQuestsQuery>(GetQuestsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetQuests', 'query');
     },
     GetRecentPosts(variables?: GetRecentPostsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetRecentPostsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetRecentPostsQuery>(GetRecentPostsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetRecentPosts', 'query');
